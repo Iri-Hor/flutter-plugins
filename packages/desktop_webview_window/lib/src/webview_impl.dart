@@ -177,6 +177,13 @@ class WebviewImpl extends Webview {
   }
 
   @override
+  Future<void> bringToForeground() {
+    return channel.invokeMethod("bringToForeground", {
+      "viewId": viewId,
+    });
+  }
+
+  @override
   Future<void> back() {
     return channel.invokeMethod("back", {"viewId": viewId});
   }
