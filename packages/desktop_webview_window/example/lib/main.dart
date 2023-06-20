@@ -214,6 +214,11 @@ class _MyAppState extends State<MyApp> {
                     onPressed: _openDevTools,
                     child: const Text('Open Dev Tools'),
                   ),
+                  const SizedBox(height: 16),
+                  TextButton(
+                    onPressed: _getPositionalParameters,
+                    child: const Text('Get Position and Size of Webview Window'),
+                  ),
                 ],
               ),
             ),
@@ -322,7 +327,7 @@ class _MyAppState extends State<MyApp> {
 
   void _bringWebviewWindowToForeground() async {
     webview.bringToForeground();
-}
+  }
 
   void _showMainWindow() async {
     //final hwnd = FindWindow(ffi.nullptr, TEXT('webview_window_example'));
@@ -334,6 +339,19 @@ class _MyAppState extends State<MyApp> {
 
   void _openDevTools() async {
     webview.openDevToolsWindow();
+  }
+
+  void _getPositionalParameters() async {
+    final res = await webview.getPositionalParameters();
+    if (res == null) {
+      debugPrint('    Plugin: Null');
+    } else {
+      debugPrint('    x: ${res['left']}');
+      debugPrint('    y: ${res['top']}');
+      debugPrint('    width: ${res['width']}');
+      debugPrint('    height: ${res['height']}');
+      debugPrint('    maximized: ${res['maximized']}');
+    }
   }
 }
 
