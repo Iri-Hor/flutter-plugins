@@ -190,7 +190,7 @@ void WebviewWindowPlugin::HandleMethodCall(
     }
     windows_[window_id]->bringToForeground();
     result->Success();
-    } else if (method_call.method_name() == "reload") {
+  } else if (method_call.method_name() == "reload") {
     auto *arguments = std::get_if<flutter::EncodableMap>(method_call.arguments());
     auto window_id = arguments->at(flutter::EncodableValue("viewId")).LongValue();
     if (!windows_.count(window_id)) {
