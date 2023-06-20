@@ -206,6 +206,11 @@ class _MyAppState extends State<MyApp> {
                   ),
                   const SizedBox(height: 16),
                   TextButton(
+                    onPressed: _bringWebviewWindowToForeground,
+                    child: const Text('Bring webview windows to foreground'),
+                  ),
+                  const SizedBox(height: 16),
+                  TextButton(
                     onPressed: _openDevTools,
                     child: const Text('Open Dev Tools'),
                   ),
@@ -314,6 +319,10 @@ class _MyAppState extends State<MyApp> {
   void _showWebviewWindow() async {
     webview.showWebviewWindow(true);
   }
+
+  void _bringWebviewWindowToForeground() async {
+    webview.bringToForeground();
+}
 
   void _showMainWindow() async {
     //final hwnd = FindWindow(ffi.nullptr, TEXT('webview_window_example'));
