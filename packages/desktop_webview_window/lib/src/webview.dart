@@ -81,6 +81,9 @@ abstract class Webview {
   /// Close the web view window.
   void close();
 
+  /// get position, extents and maximization info of the webview window
+  Future<Map<dynamic,dynamic>?> getPositionalParameters();
+
   /// evaluate JavaScript in the web view.
   Future<String?> evaluateJavaScript(String javaScript);
 
