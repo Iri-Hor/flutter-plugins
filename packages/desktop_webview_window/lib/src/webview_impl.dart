@@ -236,6 +236,14 @@ class WebviewImpl extends Webview {
     channel.invokeMethod("close", {"viewId": viewId});
   }
 
+  /// evaluate JavaScript in the web view.
+  @override
+  Future<Map<dynamic,dynamic>?> getPositionalParameters() async {
+    return await channel.invokeMethod("getPositionalParameters", {
+      "viewId": viewId,
+    });
+  }
+
   @override
   Future<String?> evaluateJavaScript(String javaScript) async {
     final dynamic result = await channel.invokeMethod("evaluateJavaScript", {
