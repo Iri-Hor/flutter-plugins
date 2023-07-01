@@ -238,7 +238,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                   const SizedBox(height: 16),
                   TextButton(
-                    onPressed: _relocateWebviewWindow,
+                    onPressed: _moveWebviewWindow,
                     child: const Text('RelocateWebview Window'),
                   ),
                 ],
@@ -376,8 +376,8 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  void _relocateWebviewWindow() async {
-    await webview.relocateWebviewWindow(100, 100, 400, 400);
+  void _moveWebviewWindow() async {
+    await webview.moveWebviewWindow(100, 100, 400, 400);
   }
 }
 

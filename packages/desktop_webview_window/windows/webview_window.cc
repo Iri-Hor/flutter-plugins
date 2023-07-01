@@ -137,30 +137,35 @@ void WebviewWindow::SetBrightness(int brightness) {
 }
 
 void WebviewWindow::ShowWebviewWindow(bool show) {
-  if(show)
+  if (show)
     ::ShowWindow(hwnd_.get(), SW_SHOW);
   else
     ::ShowWindow(hwnd_.get(), SW_HIDE);
+}
+
+void WebviewWindow::moveWebviewWindow(int left, int top, int width, int height) {
+  ::SetWindowPos(hwnd_.get(), nullptr, left, top, width, height, SWP_NOZORDER | SWP_NOACTIVATE);
 }
 
 void WebviewWindow::getPositionalParameters(std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> completer) {
   RECT rc;
   GetWindowRect(hwnd_.get(), &rc);
 
-  std::cout << "left: " << rc.left << ", top: " << rc.top << std::endl;
-
   std::unique_ptr<WINDOWPLACEMENT> wp(new WINDOWPLACEMENT);
   GetWindowPlacement(hwnd_.get(), wp.get());
-  std::map<flutter::EncodableValue, flutter::EncodableValue> m{{"left", rc.left},
+  std::map<flutter::EncodableValue, flutter::EncodableValue> res{{"left", rc.left},
     {"top", rc.top},
     {"width", rc.right-rc.left},
     {"height", rc.bottom-rc.top},
     {"maximized", wp->showCmd==SW_MAXIMIZE}};
-  completer->Success(flutter::EncodableValue(m));
+  completer->Success(flutter::EncodableValue(res));
 }
 
-void WebviewWindow::bringToForeground() {
+void WebviewWindow::bringToForeground(bool maximized) {
   SetForegroundWindow(hwnd_.get());
+  if (maximized) {
+    ::ShowWindow(hwnd_.get(), SW_MAXIMIZE);
+  }
 }
 
 // static

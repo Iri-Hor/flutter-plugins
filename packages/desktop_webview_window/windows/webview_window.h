@@ -58,9 +58,11 @@ class WebviewWindow {
 
   void ShowWebviewWindow(bool show);
 
+  void moveWebviewWindow(int left, int top, int width, int height);
+
   void getPositionalParameters(std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> completer);
 
-  void bringToForeground();
+  void bringToForeground(bool maximized);
 
   [[nodiscard]] const std::unique_ptr<webview_window::WebView> &GetWebView() const {
     return web_view_;
