@@ -31,6 +31,8 @@ class _MyAppState extends State<MyApp> {
 
   bool? _webviewAvailable;
 
+  bool maximizedzChecked = false;
+
   late Webview webview;
 
   final executeJavaScriptController = TextEditingController(text: "saySomethingNice('Something Nice :)')");
@@ -205,8 +207,23 @@ class _MyAppState extends State<MyApp> {
                     child: const Text('Show Webview Window'),
                   ),
                   const SizedBox(height: 16),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('Maximized'),
+                      Checkbox(
+                        tristate: false,
+                        value: maximizedzChecked,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            maximizedzChecked = value!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                   TextButton(
-                    onPressed: _bringWebviewWindowToForeground,
+                    onPressed: () => _bringWebviewWindowToForeground(maximizedzChecked),
                     child: const Text('Bring webview windows to foreground'),
                   ),
                   const SizedBox(height: 16),
@@ -218,6 +235,11 @@ class _MyAppState extends State<MyApp> {
                   TextButton(
                     onPressed: _getPositionalParameters,
                     child: const Text('Get Position and Size of Webview Window'),
+                  ),
+                  const SizedBox(height: 16),
+                  TextButton(
+                    onPressed: _relocateWebviewWindow,
+                    child: const Text('RelocateWebview Window'),
                   ),
                 ],
               ),
@@ -325,8 +347,8 @@ class _MyAppState extends State<MyApp> {
     webview.showWebviewWindow(true);
   }
 
-  void _bringWebviewWindowToForeground() async {
-    webview.bringToForeground();
+  void _bringWebviewWindowToForeground(bool maximized) async {
+    webview.bringToForeground(maximized: maximized);
   }
 
   void _showMainWindow() async {
@@ -352,6 +374,10 @@ class _MyAppState extends State<MyApp> {
       debugPrint('    height: ${res['height']}');
       debugPrint('    maximized: ${res['maximized']}');
     }
+  }
+
+  void _relocateWebviewWindow() async {
+    await webview.relocateWebviewWindow(100, 100, 400, 400);
   }
 }
 
