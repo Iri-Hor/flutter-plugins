@@ -8,6 +8,8 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:win32/win32.dart';
 
+//Krass wichtige Änderung
+
 void main(List<String> args) {
   debugPrint('args: $args');
   if (runWebViewTitleBarWidget(args)) {
